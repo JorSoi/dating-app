@@ -1,0 +1,176 @@
+.profileWrapper {
+    width: 100%;
+    height: 100vh;
+    padding-top: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.adorerCard,
+.settingsCard,
+.locationCard {
+  background-color: white;
+  width: 250px;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0px 4px 33px 10px rgba(0, 0, 0, 0.04);
+}
+
+.adorerWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0px;
+}
+
+.adorerImage {
+    object-fit: cover;
+    border: 4px solid rgba(232, 172, 70, 1);
+    border-radius: 5px;
+}
+
+.adorerImage.image1 {
+    rotate: 20deg;
+    transform:translate(50px, -15px)
+}
+
+.adorerImage.image2 {
+    position: relative;
+    z-index: 10;
+    width: 100px;
+    height: 120px;
+}
+
+.adorerImage.image3 {
+    rotate: -20deg;
+    transform:translate(-50px, -15px)
+}
+
+.adorerImage.image1,
+.adorerImage.image3 {
+    position: absolute;
+    width: 80px;
+    height: 100px;
+}
+
+.adorerCard p {
+    text-align: center;
+    color: rgba(0, 0, 0, 0.429);
+}
+
+.locationError {
+    width: 100%;
+    margin: 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.locationError button {
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.locationDisplay {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.locationDisplay img {
+    margin-right: 10px;
+
+}
+
+.rightContainer {
+    padding: 40px 20px;
+    width: 700px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 33px 10px rgba(0, 0, 0, 0.04);
+}
+
+.profileImageWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profileImageWrapper img {
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.profileImageWrapper p {
+    margin-top: 10px;
+    color: blue;
+    cursor: pointer;
+}
+
+.profileImageWrapper input {
+    text-align: center;
+}
+
+
+.imageUpload {
+    color: blue;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.profileFormWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.profileForm {
+    width: 460px;
+}
+
+.nameInputWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.nameInputWrapper input{
+    width: 49%;
+}
+
+.profileForm input {
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.279);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 15px;
+}
+
+.profileForm textarea {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 200px;
+    max-height: 200px;
+    margin-top: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.279);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 15px;
+}
+
+@media (max-width: 1600px) {
+    .profileImageWrapper img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .rightContainer {
+        padding: 20px 20px;
+    }
+}

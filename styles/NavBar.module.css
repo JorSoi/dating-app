@@ -1,0 +1,12 @@
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 3%;
+    font-weight: 500;
+}
+
+
+.rightContainer a:first-child {
+    margin-right: 50px;
+}

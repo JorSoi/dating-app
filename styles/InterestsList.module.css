@@ -1,0 +1,12 @@
+.interestsList h4 {
+    margin-bottom: 10px;
+}
+
+.interestsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 80px;
+}
+
+
+

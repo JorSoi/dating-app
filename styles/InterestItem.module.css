@@ -1,0 +1,11 @@
+.interestItem {
+    background-color: rgb(237, 219, 219);
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    height:fit-content
+}

@@ -1,0 +1,30 @@
+.formWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.authForm {
+    width: 100%;
+}
+
+.authForm input {
+    width: 100%;
+    height: 40px;
+    margin: 9px 0px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.163);
+    padding-left: 10px;
+}
+
+.authForm button {
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 9px;
+}
+
+
+
