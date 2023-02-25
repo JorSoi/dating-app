@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function NavBar () {
     return (
         <nav className={styles.navBar}>
-            <Link href='/'>DatingApp</Link>
+            <Link href='/' className={styles.logo}>DatingApp</Link>
             <div className={styles.rightContainer}>
                 <Link href='/chats'>My Chats</Link> 
                 <Link href='/profile'>My Profile</Link>

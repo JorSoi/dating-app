@@ -2,7 +2,7 @@
     position: absolute;
     bottom: -90px;
     display: flex;
-    width: 300px;
+    width: 350px;
     justify-content: space-between;
     align-items: center;
     left: 50%;
@@ -10,33 +10,63 @@
 }
 
 .missionControl button {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50px;
     border: none;
     font-size: 30px;
     cursor: pointer;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.11);
+    transition: 0.3s all;
 }
 
 .dislikeButton {
-    background-color: red;
+    background-color: rgb(255, 255, 255);
 }
 
 .likeButton {
-    background-color: green;
+    background-color: rgb(255, 255, 255);
+}
+
+.likeButton:hover {
+    background-color: rgb(168, 224, 161);
+}
+
+.likeButton:active {
+    background-color: rgb(128, 171, 122);
+    font-size: 1.5em;
+}
+
+.dislikeButton:hover {
+    background-color: rgb(224, 161, 161);
+}
+
+.dislikeButton:active {
+    background-color: rgb(199, 116, 116);
+    font-size: 1.5em;
 }
 
 .matchWrapper {
     text-align: center;
-} 
-
-.matchScale {
-    border: 4px solid black;
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
+    background-color: white;
+    height: 60px;
+    width: 200px;
+    border-radius: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: conic-gradient(transparent 75%, orange 75%, orange 87.5%, transparent 87.5%);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.038);
+} 
+
+.matchWrapper h5 {
+    font-size: 20px;
+    font-weight: 600;
+    background: linear-gradient(270deg, #FFAA2C 0%, #FF2125 45.31%, #A23BAB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.matchWrapper p {
+    color:rgba(0, 0, 0, 0.156)
 }

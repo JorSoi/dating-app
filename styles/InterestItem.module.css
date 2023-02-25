@@ -1,5 +1,5 @@
 .interestItem {
-    background-color: rgb(237, 219, 219);
+    background: linear-gradient(97.56deg, #FFD5D5 3.45%, #FEB6FF 133.4%);
     display: flex;
     align-items: center;
     padding: 5px 10px;
@@ -7,5 +7,19 @@
     margin-right: 5px;
     margin-bottom: 5px;
     font-size: 14px;
-    height:fit-content
+    height:fit-content;
+}
+
+.profileMode {
+    opacity: 20%;
+    cursor: pointer;
+}
+
+.active {
+    opacity: 100%;
+    cursor: pointer;
+}
+
+.interestItem span {
+    margin-left: 6px;
 }

@@ -6,12 +6,14 @@ import { authOptions } from "./api/auth/[...nextAuth]";
 import pool from "@/lib/db";
 import InterestsList from "@/components/InterestsList";
 import { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 
 export default function profilePage({interests, adorers, session}) {
 
     const [location, setLocation] = useState({});
     const [profileImage, setProfileImage] = useState();
-
 
     async function locationSuccess (location) {
         const lgt = location.coords.longitude;
@@ -43,11 +45,54 @@ export default function profilePage({interests, adorers, session}) {
         navigator.geolocation.getCurrentPosition(locationSuccess, locationError);
     }
 
-    const handleImageChange = ({target}) => {
+    const handleImageChange = async ({target}) => {
         let img = target.files[0]
-        let imgURL = URL.createObjectURL(img)
-        setProfileImage(imgURL);
+        try {
+            const body = new FormData();
+            if (!img) return;
+            body.append('myImage', img)
+            console.log(body)
+            const response = await fetch(`/api/upload`, {
+                method: 'POST',
+
+                body: body,
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
+
+    const handleSaveChanges = async (e) => {
+        e.preventDefault();
+
+        const body = {
+            name: `${formik.values.firstName} ${formik.values.lastName}`,
+            description: formik.values.description,
+        }
+
+        console.log(body)
+        try {
+            const response = await fetch(`/api/users/${session.user.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body),
+
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const formik = useFormik({
+        initialValues: {
+            firstName: "",
+            lastName: "",
+            description: "",
+        },
+        onSubmit: handleSaveChanges,        
+    })
 
     return (
         <div className={styles.profilePage}>
@@ -57,11 +102,18 @@ export default function profilePage({interests, adorers, session}) {
                     <div className={styles.adorerCard}>
                         <h2>Your adorers</h2>
                         <div className={styles.adorerWrapper}>
-                            <Image className={`${styles.adorerImage} ${styles.image1}`} src={`/userImages/${adorers[0].image}`} height={100} width={100} alt=''/>
-                            <Image className={`${styles.adorerImage} ${ styles.image2}`} src={`/userImages/${adorers[1].image}`} height={100} width={100} alt=''/>
-                            <Image className={`${styles.adorerImage} ${ styles.image3}`} src={`/userImages/${adorers[2].image}`} height={100} width={100} alt=''/>
+                            {
+                                adorers?.map((adorer, idx) => {
+                                   return (
+                                    adorers.length == 3 && <Image className={`${styles.adorerImage} ${styles[`image${idx+1}`]}`} src={adorer.image.slice(0, 5) === 'https' ? adorer.image : `/userImages/${adorer.image}`} height={100} width={100} alt=''/>
+                                   ) 
+                                })
+                            }  
+                            {
+                                adorers.length < 3 ? showAdorerPlaceholder() : null 
+                            }          
                         </div>
-                        <p>Start swiping to match with them</p>
+                        {adorers.length < 3 ? <p>Your adorers will be displayed here soon!</p> : <p>Start swiping to match with them!</p> }
                     </div>
                     <div className={styles.settingsCard}>
                         <h2>Other Settings</h2>
@@ -86,13 +138,14 @@ export default function profilePage({interests, adorers, session}) {
                         <input id='imageUpload' type="file" accept="image/jpeg, image/png, image/jpg" onChange={handleImageChange}/>
                     </div>
                     <div className={styles.profileFormWrapper}>
-                        <form className={styles.profileForm}>
+                        <form className={styles.profileForm} onSubmit={formik.onSubmit}>
                             <div className={styles.nameInputWrapper}>
-                                <input name='firstName' type='text' placeholder='First Name *'/>
-                                <input type='text' placeholder='Last Name *'/>
+                                <input name='firstName' type='text' value={formik.firstName} placeholder='First Name *' onChange={formik.handleChange} />
+                                <input name='lastName' type='text' value={formik.lastName} placeholder='Last Name *' onChange={formik.handleChange} />
                             </div>
-                            <InterestsList interests={interests}/>
-                            <textarea type='' placeholder='Introduce yourself *'/>
+                            <InterestsList interests={interests} profileMode={true} session={session}/>
+                            <textarea name='description' type='' placeholder='Introduce yourself *' value={formik.description} onChange={formik.handleChange} />
+                            <button className={styles.formSubmit} onClick={handleSaveChanges} type='submit'>Save Changes</button>
                         </form>
                     </div>
                    
@@ -106,8 +159,17 @@ export async function getServerSideProps (ctx) {
     const session = await getServerSession(ctx.req, ctx.res, authOptions)
     let interests = await pool.query("SELECT id, interest_emoji, interest_name FROM interests")
     interests = interests.rows;
-    let adorers = await pool.query("SELECT  users.id, users.name, users.image FROM user_likes JOIN users ON user_likes.user_2_id = users.id WHERE user_likes.user_1_id = 1 LIMIT 3")
+    let adorers = await pool.query("SELECT  users.id, users.name, users.image FROM user_likes JOIN users ON user_likes.user_1_id = users.id WHERE user_likes.user_2_id = $1 ORDER BY like_date DESC LIMIT 3", [session.user.id])
     adorers = adorers.rows;
+    
+    if (!session) {
+        return {
+          redirect: {
+            destination: '/',
+            permanent: false,
+          },
+        }
+      }
 
     return {
       props: {
@@ -116,4 +178,14 @@ export async function getServerSideProps (ctx) {
         adorers: adorers,
       }
     }
+}
+
+function showAdorerPlaceholder () {
+    return (
+        <>
+            <Image className={`${styles.adorerImage} ${styles.image1}`} src={`/adorer_unlock_screen.png`} height={100} width={100} alt=''/>
+            <Image className={`${styles.adorerImage} ${styles.image2}`} src={`/adorer_unlock_screen.png`} height={100} width={100} alt=''/>
+            <Image className={`${styles.adorerImage} ${styles.image3}`} src={`/adorer_unlock_screen.png`} height={100} width={100} alt=''/>
+        </>
+    )
 }

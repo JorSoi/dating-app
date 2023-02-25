@@ -6,6 +6,11 @@
     font-weight: 500;
 }
 
+.logo {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
 
 .rightContainer a:first-child {
     margin-right: 50px;

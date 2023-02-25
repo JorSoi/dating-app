@@ -7,7 +7,7 @@ import MatchOverlay from './overlays/MatchOverlay';
 
 export default function UserCard({user, handleDislike, handleLike, hasMatched, handleKeepSwiping, session}) {
 
-    const [userInterests, setUserInterests] = useState(null);
+    const [userInterests, setUserInterests] = useState([]);
     
 
     
@@ -17,7 +17,6 @@ export default function UserCard({user, handleDislike, handleLike, hasMatched, h
             const response = await fetch(`/api/users/interests/${id}`);
             if (response.ok) {
               const data = await response.json();
-              console.log(data)
               setUserInterests(data)
             }
         } catch (err) {
@@ -44,13 +43,13 @@ export default function UserCard({user, handleDislike, handleLike, hasMatched, h
                     <p>{user?.location_city} • 2km</p>
                 </div>
                 <hr />
-                <InterestsList interests={userInterests}/>
+                <InterestsList interests={userInterests} profileMode={false}/>
                 <div className={styles.bioWrapper}>
                     <h4>Introduction</h4>
                     <p>{user?.bio}</p>
                 </div>
             </div>
-            <MissionControl handleDislike={handleDislike} handleLike={handleLike} userId={user.id} session={session}/>
+            <MissionControl handleDislike={handleDislike} handleLike={handleLike} userId={user.id} session={session} userInterests={userInterests}/>
             <MatchOverlay userName={user.name} userImage={user.image} hasMatched={hasMatched} handleKeepSwiping={handleKeepSwiping} session={session}/>
         </div>
     );
