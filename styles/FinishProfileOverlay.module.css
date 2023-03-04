@@ -4,7 +4,7 @@
     position: fixed;
     top: 0px;
     left: 0px;
-    background: linear-gradient(132.03deg, rgba(233, 77, 99, 0.27) 10.89%, rgba(245, 168, 96, 0.27) 96.15%);
+    background: rgba(0, 0, 0, 0.589);
     backdrop-filter: blur(9px);
     display: flex;
     justify-content: center;
@@ -21,15 +21,25 @@
     display: block;
 }
 
+.contentWrapper h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
 .contentWrapper a {
     padding: 15px 30px;
     height: 40px;
     background-color: white;
+    border-radius: 5px;
 }
 
 .contentWrapper p {
-    margin-bottom: 30px;
-    font-size: 20px;
-    color: white;
+    font-size: 17px;
+    color: rgba(255, 255, 255, 0.475);
+    text-align: center;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 50px;
 }
 

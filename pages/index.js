@@ -10,7 +10,8 @@ import { authOptions } from "./api/auth/[...nextAuth]";
 
 
 
-export default function Home ({interests, userProfiles, session}) {
+
+export default function Home ({interests, userProfiles, session, myProfile}) {
   const [userList, setUserList] = useState(userProfiles);
   const [profileCompleted, setProfileCompleted] = useState(true);
   const [hasMatched, setHasMatched] = useState(false);
@@ -92,7 +93,7 @@ export default function Home ({interests, userProfiles, session}) {
     <div className={styles.HomePage}>
       <NavBar />
       <main className={styles.cardWrapper}>
-        {session && <UserCard user={userList[0]} handleDislike={handleDislike} handleLike={handleLike} hasMatched={hasMatched} handleKeepSwiping={handleKeepSwiping} session={session}/>}
+        {session && <UserCard user={userList[0]} handleDislike={handleDislike} handleLike={handleLike} hasMatched={hasMatched} handleKeepSwiping={handleKeepSwiping} session={session} myProfile={myProfile}/>}
       </main>
       <FinishProfileOverlay profileCompleted={profileCompleted}/>
       {session? null : <AuthOverlay />}
@@ -102,12 +103,12 @@ export default function Home ({interests, userProfiles, session}) {
 
 export async function getServerSideProps (ctx) {
     const session = await getServerSession(ctx.req, ctx.res, authOptions)
-    let userProfiles
+    let userProfiles;
     if(session !== null) {
-      userProfiles= await pool.query("SELECT id, name, age, image, bio, user_verified, location_city, gender FROM users WHERE id != $1 LIMIT 20", [session.user.id]);
+      userProfiles= await pool.query(" SELECT u.id, u.name, u.age, u.image, u.bio, u.user_verified, ul.latitude, ul.longitude, ul.city, ul.country FROM users u LEFT JOIN user_locations ul ON u.id = ul.user_id WHERE u.id != $1 LIMIT 20", [session.user.id]);
       userProfiles = userProfiles.rows;
     } else {
-      userProfiles= await pool.query("SELECT id, name, age, image, bio, user_verified, location_city, gender FROM users LIMIT 20");
+      userProfiles= await pool.query(" SELECT u.id, u.name, u.age, u.image, u.bio, u.user_verified, ul.latitude, ul.longitude, ul.city, ul.country FROM users u LEFT JOIN user_locations ul ON u.id = ul.user_id LIMIT 20;");
       userProfiles = userProfiles.rows;
     }
     

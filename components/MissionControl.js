@@ -33,7 +33,6 @@ function MissionControl({handleDislike, handleLike, userId, session, userInteres
     const calcMatchProb = async () => {
         let numerator = 0;
         let denominator = (userInterests.length +  profileInterests.length)/2;
-        console.log(denominator);
         userInterests.forEach((interest) => {
             for(let i = 0; i < profileInterests.length; i++) {
                 if(interest.id == profileInterests[i].id) {
@@ -44,7 +43,6 @@ function MissionControl({handleDislike, handleLike, userId, session, userInteres
         })
         let matchProbability = Math.round((numerator/denominator)*100);
         setMatchProbability(matchProbability)
-        console.log(matchProbability)
     } 
 
     useEffect(() => {

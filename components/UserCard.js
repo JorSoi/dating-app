@@ -4,11 +4,37 @@ import { useState, useEffect } from 'react';
 import InterestsList from './InterestsList';
 import MissionControl from './MissionControl';
 import MatchOverlay from './overlays/MatchOverlay';
+import haversine from "haversine-distance"
 
-export default function UserCard({user, handleDislike, handleLike, hasMatched, handleKeepSwiping, session}) {
+export default function UserCard({user, handleDislike, handleLike, hasMatched, handleKeepSwiping, session, myProfile}) {
 
     const [userInterests, setUserInterests] = useState([]);
+    const [userProximity, setUserProximity] = useState(null);
     
+    const getUserProximity = async () => {
+        try {
+            const response = await fetch('/api/users/location');
+            if (response.ok) {
+                const data = await response.json()
+                let user_1 = {
+                    latitude: data.latitude, 
+                    longitude: data.longitude,
+                   }
+                   let user_2 = {
+                    latitude: user.latitude, 
+                    longitude: user.longitude,
+                   }
+                let proximity = Math.floor(haversine(user_1, user_2)/1000)
+                setUserProximity(proximity) 
+                
+            }
+            
+        } catch (err) {
+
+        }
+       
+
+    }
 
     
 
@@ -26,12 +52,14 @@ export default function UserCard({user, handleDislike, handleLike, hasMatched, h
 
     useEffect(() => {
         fetchUserInterests(user.id);
+        getUserProximity();
     }, [user])
+
 
     return (
         <div className={styles.userCard}>
             <div className={styles.profileImageWrapper}>
-                <Image className={styles.profileImage} src={user.image.slice(0, 5) === 'https' ? user.image : `/userImages/${user.image}`} width={900} height={900} alt='' priority/>
+                <Image className={styles.profileImage} src={user.image.slice(0, 5) === 'https' ? user.image : `/userImages/${user.image}`} width={900} height={900} alt='' />
             </div>
             <div className={styles.profileContentWrapper}>
                 <div className={styles.titleWrapper}>
@@ -40,7 +68,7 @@ export default function UserCard({user, handleDislike, handleLike, hasMatched, h
                 </div>
                 <div className={styles.locationWrapper}>
                     <Image src={'/location.svg'} height={20} width={20} alt='' />
-                    <p>{user?.location_city} • 2km</p>
+                    <p>{user?.city} • {userProximity} km</p>
                 </div>
                 <hr />
                 <InterestsList interests={userInterests} profileMode={false}/>
@@ -50,7 +78,7 @@ export default function UserCard({user, handleDislike, handleLike, hasMatched, h
                 </div>
             </div>
             <MissionControl handleDislike={handleDislike} handleLike={handleLike} userId={user.id} session={session} userInterests={userInterests}/>
-            <MatchOverlay userName={user.name} userImage={user.image} hasMatched={hasMatched} handleKeepSwiping={handleKeepSwiping} session={session}/>
+            <MatchOverlay userName={user.name} userImage={user.image} hasMatched={hasMatched} handleKeepSwiping={handleKeepSwiping} session={session} myProfile={myProfile}/>
         </div>
     );
 }

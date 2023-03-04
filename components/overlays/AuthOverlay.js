@@ -36,7 +36,6 @@ function AuthOverlay() {
                         {displaySignIn ? 
                          <p>Don't have an account yet? <span onClick={() => {handleClick('signUp')}}>Sign Up</span></p> 
                         :<p>Already have an account? <span onClick={handleClick}>Sign In</span></p>}
-               
             </div>
         </div>
     );

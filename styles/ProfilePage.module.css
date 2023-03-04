@@ -9,7 +9,8 @@
 
 .adorerCard,
 .settingsCard,
-.locationCard {
+.locationCard,
+.signOutCard {
   background-color: white;
   width: 250px;
   padding: 20px;
@@ -64,30 +65,116 @@
     color: rgba(0, 0, 0, 0.429);
 }
 
-.locationError {
+.settingsWrapper {
     width: 100%;
-    margin: 20px 0px;
+    height: 100px;
     display: flex;
-    justify-content: center;
+}
+
+
+
+
+
+
+.locationCard img {
+    width: 17px;
+    height: 17px;
+    fill: black;
+}
+
+.locationCard h2 {
+    display: flex;
     align-items: center;
 }
 
-.locationError button {
-    padding: 10px 20px;
+.locationCard span {
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    transition: all 0.6s;
+    transform:rotate(0deg);
+}
+
+.locationCard span:active {
+    transform:rotate(360deg);
+}
+
+.locationError {
+    padding: 13px 0px;
     border-radius: 10px;
     border: none;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .locationDisplay {
     display: flex;
     align-items: center;
+    justify-content: left;
     margin-top: 20px;
 }
 
 .locationDisplay img {
     margin-right: 10px;
-
+    margin-left: 0px;
+    width:auto;
+    height: 20px;
 }
+
+.locationDisplay span {
+    height: 18px;
+    background-color: rgba(0, 0, 0, 0.087);
+    border-radius: 5px;
+}
+
+.locationDisplay .cityLoadingPlaceholder {
+    width: 80px;
+}
+
+.locationDisplay .countryLoadingPlaceholder {
+    width: 105px;
+}
+
+.signOutWrapper {
+    width: 100%;
+    padding: 13px 0px;
+    background-color: rgb(255, 213, 213);
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.signOutWrapper:active {
+    background-color: rgb(236, 171, 171);
+}
+
+.signOutWrapper p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    font-size: 17px;
+    font-weight: 450;
+} 
+
+.signOutWrapper span {
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signOutWrapper img {
+    height: 100%;
+    width: auto;
+}
+
+
+
 
 .rightContainer {
     padding: 40px 20px;
@@ -104,11 +191,13 @@
     flex-direction: column;
 }
 
-.profileImageWrapper img {
+.profileImageWrapper img,
+.imagePlaceholder {
     border-radius: 10px;
     object-fit: cover;
     width: 200px;
     height: 250px;
+    margin-bottom: 10px;
 }
 
 .profileImageWrapper p {
@@ -135,8 +224,12 @@
     margin-top: 30px;
 }
 
+.profileImageWrapper input[type="file"] {
+    display: none;
+}
+
 .profileForm {
-    width: 460px;
+    width: 500px;
 }
 
 .nameInputWrapper {

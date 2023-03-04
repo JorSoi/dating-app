@@ -26,5 +26,45 @@
     margin-top: 9px;
 }
 
+.authForm p {
+    font-size: 14px;
+    text-align: left;
+    opacity: 0%;
+    margin: 0px;
+    height: 0px;
+    color: red;
+    transform: translateY(-20px);
+    transition: all 0.5s;
+}
+
+.hideValidationError {
+    opacity: 0%;
+    transform: translateY(-20px);
+} 
+
+.authForm .showValidationError {
+    opacity: 100%;
+    transform: translateY(-5px);
+    margin-bottom: 15px;
+}
+
+.authForm .errorInputStyle {
+    border: 2px solid rgb(255, 86, 86) !important;
+    background-color: rgb(255, 237, 237);
+}
+
+.authForm .errorInputStyle::placeholder {
+    color: rgb(255, 108, 108);
+}
+
+.authForm .noUserFound {
+    opacity: 100%;
+    transform: none;
+    text-align: center;
+    margin: 20px 0px;
+    color: red;
+    font-size: 16px;
+}
+
 
 
