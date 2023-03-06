@@ -6,7 +6,7 @@
   font-size: 16px;
   text-decoration: none;
   color: #000214;
-  /* border: 1px solid black; */
+  /* border: 1px solid black !important; */
 }
  
 body {

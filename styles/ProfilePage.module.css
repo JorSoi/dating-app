@@ -32,6 +32,7 @@
     border: 4px solid rgba(232, 172, 70, 1);
     border-radius: 5px;
     background-color: rgb(207, 144, 36);
+    transition: all 0.3s;
 }
 
 
@@ -48,6 +49,10 @@
     box-shadow: 0px 4px 9px 2px rgba(0, 0, 0, 0.12);
 }
 
+.adorerImage.image1:hover {
+    transform: scale(110%);
+}
+
 .adorerImage.image3 {
     rotate: -20deg;
     transform:translate(-50px, -15px)
@@ -60,6 +65,13 @@
     height: 100px;
 }
 
+.adorerImage.image2:hover,
+.adorerImage.image3:hover {
+    width: 90px;
+    height: 110px;
+}
+
+
 .adorerCard p {
     text-align: center;
     color: rgba(0, 0, 0, 0.429);
@@ -67,8 +79,64 @@
 
 .settingsWrapper {
     width: 100%;
-    height: 100px;
+    margin-top: 18px;
     display: flex;
+    justify-content: space-between;
+}
+
+.settingsWrapper p {
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.ageWrapper,
+.genderWrapper,
+.verifiedWrapper {
+    text-align: center;
+}
+
+
+
+.ageWrapper .ageInput {
+    width: 54px;
+    height: 54px;
+    border: 2px solid rgba(0, 0, 0, 0.042);
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 7px;
+    text-align: center;
+    padding-left: 10px;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.genderWrapper select {
+    width: 90px;
+    height: 54px;
+    border: 2px solid rgba(0, 0, 0, 0.042);
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 7px;
+}
+
+.verifiedButton {
+    width: 54px;
+    height: 54px;
+    border: 2px solid rgba(0, 0, 0, 0.042);
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.verified {
+    background-color: rgba(0, 0, 255, 0.262);
+    border: 2px solid rgba(3, 20, 255, 0.28);
+}
+
+.verified:active {
+    background-color: rgba(0, 0, 222, 0.451);
+    border: 2px solid rgba(3, 20, 255, 0.28);
 }
 
 
@@ -243,11 +311,12 @@
 }
 
 .profileForm input {
-    height: 40px;
-    border: 1px solid rgba(0, 0, 0, 0.279);
+    height: 50px;
+    border: 2px solid rgba(0, 0, 0, 0.096);
     border-radius: 5px;
     padding-left: 10px;
     font-size: 15px;
+    
 }
 
 .profileForm textarea {
@@ -256,7 +325,7 @@
     min-height: 200px;
     max-height: 200px;
     margin-top: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.279);
+    border: 2px solid rgba(0, 0, 0, 0.096);
     border-radius: 5px;
     padding: 10px;
     font-size: 15px;
@@ -268,12 +337,28 @@
     margin-top: 10px;
     border: none;
     border-radius: 5px;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     color: white;
+    transition: background-color 0.4s;
+}
+
+.formSubmit:disabled {
+    background-color: rgba(0, 0, 0, 0.314) !important;
+    cursor: auto;
 }
 
 
+ 
+.errorInputStyle {
+    transition: all 1s;
+    border: 2px solid rgb(255, 86, 86) !important;
+    background-color: rgb(255, 237, 237) !important;
+}
 
+.errorInputStyle::placeholder,
+.errorInputStyle:optional {
+    color: rgb(255, 108, 108);
+}
 
 
 

@@ -32,6 +32,7 @@ function InterestsList({interests, session, profileMode}) {
             if (response.ok) {
                 const data = await response.json();
                 setActiveInterests(data);
+                fetchActiveInterests()
             }
         } catch (err) {
             console.log(err)
@@ -54,6 +55,7 @@ function InterestsList({interests, session, profileMode}) {
             if (response.ok) {
                 const data = await response.json();
                 setActiveInterests(data);
+                fetchActiveInterests()
             }
         } catch (err) {
             console.log(err)
@@ -64,7 +66,7 @@ function InterestsList({interests, session, profileMode}) {
         if (profileMode) {
             fetchActiveInterests()
         }
-    }, [activeInterests])
+    }, [])
 
     return (
         <div className={styles.interestsList}>

@@ -59,7 +59,11 @@ export default function UserCard({user, handleDislike, handleLike, hasMatched, h
     return (
         <div className={styles.userCard}>
             <div className={styles.profileImageWrapper}>
-                <Image className={styles.profileImage} src={user.image.slice(0, 5) === 'https' ? user.image : `/userImages/${user.image}`} width={900} height={900} alt='' />
+                {
+                    user.image? <Image className={styles.profileImage} src={user.image.slice(0, 5) === 'https' ? user.image : `/userImages/${user.image}`} width={900} height={900} alt='' /> :
+                    <Image className={styles.profileImage} src={'/image-placeholder.png'} width={900} height={900} alt='' />
+                }
+                
             </div>
             <div className={styles.profileContentWrapper}>
                 <div className={styles.titleWrapper}>
@@ -68,7 +72,7 @@ export default function UserCard({user, handleDislike, handleLike, hasMatched, h
                 </div>
                 <div className={styles.locationWrapper}>
                     <Image src={'/location.svg'} height={20} width={20} alt='' />
-                    <p>{user?.city} • {userProximity} km</p>
+                    {userProximity > 1 ? <p>{user?.city} • {userProximity} km</p> : <p>{user?.city} • Nearby</p>}
                 </div>
                 <hr />
                 <InterestsList interests={userInterests} profileMode={false}/>

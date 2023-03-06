@@ -33,16 +33,21 @@ const [profileImage, setProfileImage] = useState(null);
                 <p>Can you feel the butterflies? You and {userName} have matched each other!</p>
                 <div className={styles.imageWrapper}>
                     <div className={styles.imageContainer}>
-                        <Image className ={styles.leftImg} src={userImage.slice(0, 5) === 'https' ? userImage : `/userImages/${userImage}`} width={200} height={400} alt="" />
-                        {profileImage &&
+                        {userImage ? <Image className ={styles.leftImg} src={userImage.slice(0, 5) === 'https' ? userImage : `/userImages/${userImage}`} width={200} height={400} alt="" /> :
+                        <Image className ={styles.leftImg} src={'/image-placeholder.png'} width={200} height={400} alt='' />
+                        }
+                            
+                        {profileImage ?
                             <Image className ={styles.rightImg} src={profileImage.slice(0, 5) === 'https' ? profileImage : `/userImages/${profileImage}`} width={200} height={400} alt="" />
+                            :
+                            <Image className ={styles.rightImg} src={'/image-placeholder.png'} width={200} height={400} alt='' />
                         }
                     </div>
                     
                 </div>
                 <div className={styles.buttonWrapper}>
-                    <button>Switch to Chat</button>
-                    <button onClick={handleSwipeClick}>Keep Swiping</button>
+                    <button><span><Image src={'/chat.svg'} height={20} width={20} alt=''/></span>Switch to Chat</button>
+                    <button onClick={handleSwipeClick}><span><Image src={'/swipe.svg'} height={20} width={20} alt=''/></span>Keep Swiping</button>
                 </div>
             </div>
         </div>

@@ -1,25 +1,51 @@
 import styles from '@/styles/AuthForms.module.css'
 import { useFormik } from 'formik';
+import { signIn } from 'next-auth/react';
+import { useState } from 'react';
 import * as Yup from "yup";
+
 
 function SignUpForm() {
 
-    const signUpUser = () => {
-        alert('form got submitted')
-        console.log('form got submitted')
+    const [alreadyRegistered, setAlreadyRegistered] = useState();
+
+    const signUpUser = async () => {
+        const body = {
+            email: formik.values.email,
+            password: formik.values.password,
+        }
+        try {
+            const response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body)
+            })
+            if(response.ok) {
+                const data = await response.json();
+                data.alreadyRegistered ? setAlreadyRegistered(true) : signIn('credentials', {
+                    email: body.email,
+                    password: body.password,
+                    callbackUrl: 'http://localhost:3000/profile',
+                })
+            }
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
-            confirmPassword: "hi",
+            confirmPassword: "",
         },
         enableReinitialize: true,
         validationSchema: Yup.object({
             email: Yup.string().email("Incorrect Email").required('Required'),
             password: Yup.string().min(10, 'Must be at least 10 characters').required('Required'),
-            confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match')
+            confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Required')
         }),
         onSubmit: signUpUser,      
     })
@@ -63,6 +89,7 @@ function SignUpForm() {
             />
             <p className={formik.errors.confirmPassword && formik.touched.confirmPassword ? styles.showValidationError : styles.hideValidationError}>{formik.errors.confirmPassword}</p>
             <button type="submit">Sign Up</button>
+            {alreadyRegistered && <p className={styles.alreadyRegistered}>Hmm... This email is already in use. 👅</p>}
         </form>
         </div>
         

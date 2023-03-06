@@ -20,9 +20,16 @@
     width: 600px;
 }
 
-.matchOverlay h1,
-.matchOverlay p {
+
+.matchOverlay h1 {
+    font-size: 60px;
     color: white;
+
+}
+
+.matchOverlay p {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.69);
 }
 
 .imageWrapper {
@@ -47,24 +54,123 @@
 }
 
 .leftImg {
+    animation-name: rotate-left;
+    animation-duration: 1s;
+    animation-delay: 0s;
     transform: rotate(-20deg);
 }
 
+@keyframes rotate-left {
+    0% {
+        transform: rotate(0);
+        width: 100px;
+        height: 200px;
+        opacity: 0%;
+      }
+
+    50% {
+        transform: rotate(-35deg);
+        width: 300px;
+        height: 400px;
+    }
+
+    70% {
+        transform: rotate(-35deg);
+        width: 300px;
+        height: 400px;
+    }
+
+      100% {
+        transform: rotate(-20deg);
+        opacity: 100%;
+        width: 250px;
+        height: 350px;
+      }
+}
+
 .rightImg {
+    animation-name: rotate-right;
+    animation-duration: 1s;
     transform: rotate(10deg);
 }
 
+@keyframes rotate-right {
+    0% {
+        transform: rotate(0);
+        width: 100px;
+        height: 200px;
+        opacity: 0%;
+      }
+
+    50% {
+        transform: rotate(25deg);
+        width: 300px;
+        height: 400px;
+
+    }
+
+    70% {
+        transform: rotate(25deg);
+        width: 300px;
+        height: 400px;
+    }
+
+    100% {
+        transform: rotate(10deg);
+        opacity: 100%;
+        width: 250px;
+        height: 350px;
+    }
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+    animation-name: delay-visibility;
+    animation-duration: 2s;
+    animation-delay: 0s;
+    opacity: 100%;
+}
+
+@keyframes delay-visibility {
+    0% {
+        opacity: 0%;
+      }
+
+    40% {
+        opacity: 0%;
+    }
+
+    100% {
+        opacity: 100%;
+    }
+}
 
 .buttonWrapper button{
-    padding: 15px 30px;
+    padding: 20px 30px;
     font-size: 17px;
     margin: 10px;
     background-color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 500px;
     cursor: pointer;
 }
 
 .buttonWrapper button:nth-child(2) {
-    background-color: rgba(255, 255, 255, 0.474);
+    background-color: rgba(255, 255, 255, 0.465);
+}
+
+.buttonWrapper button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonWrapper span {
+    height: 21px;
+    margin-right: 7px;
+}
+.buttonWrapper img {
+    height: 100%;
+    width: auto;
 }

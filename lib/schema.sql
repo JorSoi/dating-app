@@ -21,10 +21,25 @@ INSERT INTO user_likes VALUES(4, 5)
 INSERT INTO users (id, name, email, password)
 VALUES(DEFAULT, 'Test User', 'test.user@email.com', 'testpassword1234')
 
-CREATE TABLE users_locations (
-  user_id integer REFERENCES users(id),
+
+-- Storing User Locations
+CREATE TABLE user_locations (
+  user_id integer REFERENCES users(id) ON DELETE CASCADE,
 	latitude DECIMAL,
   longitude DECIMAL,
   city varchar,
   country varchar
+ )
+
+-- Storing User Interests Relation
+CREATE TABLE user_interests (
+  user_id integer REFERENCES users(id) ON DELETE CASCADE,
+  interest_id integer REFERENCES interests(id) ON DELETE CASCADE
+ )
+
+-- Storing User Likes Relation
+CREATE TABLE user_likes (
+  user_1_id integer REFERENCES users(id) ON DELETE CASCADE,
+  user_2_id integer REFERENCES users(id) ON DELETE CASCADE,
+  like_date timestamptz NOT NULL DEFAULT CURRENT_TIMESTAMP
  )

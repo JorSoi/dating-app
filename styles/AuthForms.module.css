@@ -51,13 +51,15 @@
 .authForm .errorInputStyle {
     border: 2px solid rgb(255, 86, 86) !important;
     background-color: rgb(255, 237, 237);
+    transition: all 1s;
 }
 
 .authForm .errorInputStyle::placeholder {
     color: rgb(255, 108, 108);
 }
 
-.authForm .noUserFound {
+.authForm .noUserFound,
+.authForm .alreadyRegistered {
     opacity: 100%;
     transform: none;
     text-align: center;

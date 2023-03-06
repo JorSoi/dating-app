@@ -51,7 +51,7 @@ export default function Home ({interests, userProfiles, session, myProfile}) {
         },
         body: JSON.stringify(body)
       })
-      if(response.status === 200 || response.status === 204) {
+      if(response.status === 200 || response.status === 201) {
         const matchCheck = await fetch(`/api/users/likes`, {
           method: 'PUT',
           headers: {
@@ -105,7 +105,7 @@ export async function getServerSideProps (ctx) {
     const session = await getServerSession(ctx.req, ctx.res, authOptions)
     let userProfiles;
     if(session !== null) {
-      userProfiles= await pool.query(" SELECT u.id, u.name, u.age, u.image, u.bio, u.user_verified, ul.latitude, ul.longitude, ul.city, ul.country FROM users u LEFT JOIN user_locations ul ON u.id = ul.user_id WHERE u.id != $1 LIMIT 20", [session.user.id]);
+      userProfiles= await pool.query("SELECT u.id, u.name, u.age, u.image, u.bio, u.user_verified, ul.latitude, ul.longitude, ul.city, ul.country FROM users u LEFT JOIN user_locations ul ON u.id = ul.user_id WHERE u.id != $1 LIMIT 20", [session.user.id]);
       userProfiles = userProfiles.rows;
     } else {
       userProfiles= await pool.query(" SELECT u.id, u.name, u.age, u.image, u.bio, u.user_verified, ul.latitude, ul.longitude, ul.city, ul.country FROM users u LEFT JOIN user_locations ul ON u.id = ul.user_id LIMIT 20;");
